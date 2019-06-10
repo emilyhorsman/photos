@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 62ce0068e9655452e82eb94abfec34ef
+ * @relayHash 38de68ac7276c067f7020055f591887c
  */
 
 /* eslint-disable */
@@ -9,13 +9,14 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type ImageMagick_photo$ref = any;
 type PhotoPreview_photo$ref = any;
 export type PhotoPageQueryVariables = {|
   id: number
 |};
 export type PhotoPageQueryResponse = {|
   +photo: ?{|
-    +$fragmentRefs: PhotoPreview_photo$ref
+    +$fragmentRefs: ImageMagick_photo$ref & PhotoPreview_photo$ref
   |}
 |};
 export type PhotoPageQuery = {|
@@ -30,9 +31,14 @@ query PhotoPageQuery(
   $id: Int!
 ) {
   photo(rowId: $id) {
+    ...ImageMagick_photo
     ...PhotoPreview_photo
     id
   }
+}
+
+fragment ImageMagick_photo on Photo {
+  identifyVerbose
 }
 
 fragment PhotoPreview_photo on Photo {
@@ -77,6 +83,11 @@ return {
         "selections": [
           {
             "kind": "FragmentSpread",
+            "name": "ImageMagick_photo",
+            "args": null
+          },
+          {
+            "kind": "FragmentSpread",
             "name": "PhotoPreview_photo",
             "args": null
           }
@@ -101,6 +112,13 @@ return {
           {
             "kind": "ScalarField",
             "alias": null,
+            "name": "identifyVerbose",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
             "name": "id",
             "args": null,
             "storageKey": null
@@ -120,11 +138,11 @@ return {
     "operationKind": "query",
     "name": "PhotoPageQuery",
     "id": null,
-    "text": "query PhotoPageQuery(\n  $id: Int!\n) {\n  photo(rowId: $id) {\n    ...PhotoPreview_photo\n    id\n  }\n}\n\nfragment PhotoPreview_photo on Photo {\n  id\n  filepath\n}\n",
+    "text": "query PhotoPageQuery(\n  $id: Int!\n) {\n  photo(rowId: $id) {\n    ...ImageMagick_photo\n    ...PhotoPreview_photo\n    id\n  }\n}\n\nfragment ImageMagick_photo on Photo {\n  identifyVerbose\n}\n\nfragment PhotoPreview_photo on Photo {\n  id\n  filepath\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '4f8ec98cf079ceefa6e3497870560670';
+(node/*: any*/).hash = '8eb3c7a721b4d8c231a5612afcd18842';
 module.exports = node;
