@@ -3,6 +3,7 @@ import graphql from 'babel-plugin-relay/macro';
 import { QueryRenderer } from 'react-relay';
 
 import Environment from './Environment';
+import ExifSummary from './ExifSummary';
 import ImageMagick from './ImageMagick';
 import PhotoPreview from './PhotoPreview';
 
@@ -26,15 +27,19 @@ function PhotoPageQueryRenderer({ error, props }) {
   const { photo } = props;
   return (
     <ImageMagick photo={photo}>
-      {({ width }) => (
-        <PhotoPreview
-          photo={photo}
-          style={{
-            width: width / window.devicePixelRatio,
-            maxWidth: '100%',
-            maxHeight: '100vh',
-          }}
-        />
+      {exif => (
+        <>
+          <PhotoPreview
+            photo={photo}
+            style={{
+              width: exif.width / window.devicePixelRatio,
+              maxWidth: '100%',
+              maxHeight: '100vh',
+            }}
+          />
+
+          <ExifSummary exif={exif} />
+        </>
       )}
     </ImageMagick>
   );
