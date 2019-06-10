@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/core": "10.0.10",
     "@graphile-contrib/pg-simplify-inflector": "^5.0.0-beta.1",
     "babel-plugin-relay": "2.0.0-rc.2",
     "core-js": "2.6.9",

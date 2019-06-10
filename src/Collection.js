@@ -34,7 +34,13 @@ function CollectionQueryRenderer({ error, props }) {
     <div>
       <h1>{collection.name}</h1>
       {collection.photoCollections.nodes.map(({ photo }) => (
-        <Photo key={photo.id} photo={photo} />
+        <Photo
+          key={photo.id}
+          photo={photo}
+          style={{
+            maxWidth: '50vw',
+          }}
+        />
       ))}
     </div>
   );
