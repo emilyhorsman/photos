@@ -2,13 +2,20 @@ import React from 'react';
 import graphql from 'babel-plugin-relay/macro';
 import { QueryRenderer } from 'react-relay';
 import Environment from './Environment';
+import Photo from './PhotoPreview';
 
 const CollectionQuery = graphql`
-  query CollectionQuery {
-    collections {
-      nodes {
-        rowId
-        name
+  query CollectionQuery($id: Int!) {
+    collection(rowId: $id) {
+      name
+      id
+      photoCollections {
+        nodes {
+          photo {
+            id
+            ...PhotoPreview_photo
+          }
+        }
       }
     }
   }
@@ -22,23 +29,23 @@ function CollectionQueryRenderer({ error, props }) {
   if (!props) {
     return <div>Loading!</div>;
   }
+  const { collection } = props;
   return (
     <div>
-      {props.collections.nodes.map(collection => (
-        <div key={collection.rowId}>
-          {collection.rowId} {collection.name}
-        </div>
+      <h1>{collection.name}</h1>
+      {collection.photoCollections.nodes.map(({ photo }) => (
+        <Photo key={photo.id} photo={photo} />
       ))}
     </div>
   );
 }
 
-export default function Collection() {
+export default function Collection(props) {
   return (
     <QueryRenderer
       environment={Environment}
       query={CollectionQuery}
-      variables={{}}
+      variables={{ id: parseInt(props.match.params.id, 10) }}
       render={CollectionQueryRenderer}
     />
   );

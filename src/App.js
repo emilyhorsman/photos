@@ -1,11 +1,12 @@
 import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Collection from './Collection';
 
 function App() {
   return (
-    <div>
-      <Collection />
-    </div>
+    <Router>
+      <Route path="/collection/:id" component={Collection} />
+    </Router>
   );
 }
 
