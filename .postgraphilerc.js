@@ -4,5 +4,7 @@ module.exports = {
     schema: ['app_public'],
     appendPlugins: '@graphile-contrib/pg-simplify-inflector',
     enhanceGraphiql: true,
+    exportSchemaGraphql: 'schema.graphql',
+    classicIds: true,
   },
 };
