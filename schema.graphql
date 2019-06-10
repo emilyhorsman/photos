@@ -537,6 +537,8 @@ type Photo implements Node {
   rowId: Int!
   createdAt: Datetime
   filepath: String
+  identifyCommand: String!
+  identifyVerbose: String!
 
   """Reads and enables pagination through a set of `PhotoCollection`."""
   photoCollections(
@@ -676,6 +678,12 @@ input PhotoCondition {
 
   """Checks for equality with the object’s `filepath` field."""
   filepath: String
+
+  """Checks for equality with the object’s `identifyCommand` field."""
+  identifyCommand: String
+
+  """Checks for equality with the object’s `identifyVerbose` field."""
+  identifyVerbose: String
 }
 
 """An input for mutations affecting `Photo`"""
@@ -683,6 +691,8 @@ input PhotoInput {
   rowId: Int
   createdAt: Datetime
   filepath: String
+  identifyCommand: String
+  identifyVerbose: String
 }
 
 """
@@ -692,6 +702,8 @@ input PhotoPatch {
   rowId: Int
   createdAt: Datetime
   filepath: String
+  identifyCommand: String
+  identifyVerbose: String
 }
 
 """A connection to a list of `Photo` values."""
@@ -729,6 +741,10 @@ enum PhotosOrderBy {
   CREATED_AT_DESC
   FILEPATH_ASC
   FILEPATH_DESC
+  IDENTIFY_COMMAND_ASC
+  IDENTIFY_COMMAND_DESC
+  IDENTIFY_VERBOSE_ASC
+  IDENTIFY_VERBOSE_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
