@@ -1,18 +1,18 @@
 import React from 'react';
 import graphql from 'babel-plugin-relay/macro';
 import { QueryRenderer } from 'react-relay';
+import { Link } from 'react-router-dom';
 import Environment from './Environment';
-import Photo from './PhotoPreview';
+import PhotoPreview from './PhotoPreview';
 
-const CollectionQuery = graphql`
-  query CollectionQuery($id: Int!) {
+const CollectionPageQuery = graphql`
+  query CollectionPageQuery($id: Int!) {
     collection(rowId: $id) {
       name
-      id
       photoCollections {
         nodes {
           photo {
-            id
+            rowId
             ...PhotoPreview_photo
           }
         }
@@ -21,7 +21,7 @@ const CollectionQuery = graphql`
   }
 `;
 
-function CollectionQueryRenderer({ error, props }) {
+function CollectionPageQueryRenderer({ error, props }) {
   if (error) {
     console.log(error);
     return <div>Error!</div>;
@@ -34,25 +34,26 @@ function CollectionQueryRenderer({ error, props }) {
     <div>
       <h1>{collection.name}</h1>
       {collection.photoCollections.nodes.map(({ photo }) => (
-        <Photo
-          key={photo.id}
-          photo={photo}
-          style={{
-            maxWidth: '50vw',
-          }}
-        />
+        <Link to={`/photo/${photo.rowId}`} key={photo.rowId}>
+          <PhotoPreview
+            photo={photo}
+            style={{
+              maxWidth: '50vw',
+            }}
+          />
+        </Link>
       ))}
     </div>
   );
 }
 
-export default function Collection(props) {
+export default function CollectionPage(props) {
   return (
     <QueryRenderer
       environment={Environment}
-      query={CollectionQuery}
+      query={CollectionPageQuery}
       variables={{ id: parseInt(props.match.params.id, 10) }}
-      render={CollectionQueryRenderer}
+      render={CollectionPageQueryRenderer}
     />
   );
 }

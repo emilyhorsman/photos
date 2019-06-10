@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 722b99f087f2d4a589e8ce1d57760449
+ * @relayHash 7d34ba3c2e7699710c4c05f28fc1ccc8
  */
 
 /* eslint-disable */
@@ -10,46 +10,46 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type PhotoPreview_photo$ref = any;
-export type CollectionQueryVariables = {|
+export type CollectionPageQueryVariables = {|
   id: number
 |};
-export type CollectionQueryResponse = {|
+export type CollectionPageQueryResponse = {|
   +collection: ?{|
     +name: string,
-    +id: string,
     +photoCollections: {|
       +nodes: $ReadOnlyArray<?{|
         +photo: ?{|
-          +id: string,
+          +rowId: number,
           +$fragmentRefs: PhotoPreview_photo$ref,
         |}
       |}>
     |},
   |}
 |};
-export type CollectionQuery = {|
-  variables: CollectionQueryVariables,
-  response: CollectionQueryResponse,
+export type CollectionPageQuery = {|
+  variables: CollectionPageQueryVariables,
+  response: CollectionPageQueryResponse,
 |};
 */
 
 
 /*
-query CollectionQuery(
+query CollectionPageQuery(
   $id: Int!
 ) {
   collection(rowId: $id) {
     name
-    id
     photoCollections {
       nodes {
         photo {
-          id
+          rowId
           ...PhotoPreview_photo
+          id
         }
         id
       }
     }
+    id
   }
 }
 
@@ -85,6 +85,13 @@ v2 = {
 v3 = {
   "kind": "ScalarField",
   "alias": null,
+  "name": "rowId",
+  "args": null,
+  "storageKey": null
+},
+v4 = {
+  "kind": "ScalarField",
+  "alias": null,
   "name": "id",
   "args": null,
   "storageKey": null
@@ -93,7 +100,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "CollectionQuery",
+    "name": "CollectionPageQuery",
     "type": "Query",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
@@ -108,7 +115,6 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v3/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -154,7 +160,7 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "CollectionQuery",
+    "name": "CollectionPageQuery",
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
@@ -167,7 +173,6 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v3/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -196,6 +201,7 @@ return {
                     "plural": false,
                     "selections": [
                       (v3/*: any*/),
+                      (v4/*: any*/),
                       {
                         "kind": "ScalarField",
                         "alias": null,
@@ -205,24 +211,25 @@ return {
                       }
                     ]
                   },
-                  (v3/*: any*/)
+                  (v4/*: any*/)
                 ]
               }
             ]
-          }
+          },
+          (v4/*: any*/)
         ]
       }
     ]
   },
   "params": {
     "operationKind": "query",
-    "name": "CollectionQuery",
+    "name": "CollectionPageQuery",
     "id": null,
-    "text": "query CollectionQuery(\n  $id: Int!\n) {\n  collection(rowId: $id) {\n    name\n    id\n    photoCollections {\n      nodes {\n        photo {\n          id\n          ...PhotoPreview_photo\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment PhotoPreview_photo on Photo {\n  id\n  filepath\n}\n",
+    "text": "query CollectionPageQuery(\n  $id: Int!\n) {\n  collection(rowId: $id) {\n    name\n    photoCollections {\n      nodes {\n        photo {\n          rowId\n          ...PhotoPreview_photo\n          id\n        }\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment PhotoPreview_photo on Photo {\n  id\n  filepath\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'dc81449cd7e25c9d7b1a1aab7d7df077';
+(node/*: any*/).hash = '990f8356ac5c53dbaa5c81f2229fddb2';
 module.exports = node;
