@@ -12,10 +12,7 @@ function PhotoPreview({ photo, style }) {
         style,
         {
           display: 'block',
-          borderWidth: 10,
-          borderStyle: 'solid',
-          borderColor: 'white',
-          boxSizing: 'border-box',
+          marginBottom: 10,
         },
       ]}
     />
