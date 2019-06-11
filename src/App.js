@@ -2,8 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import CollectionPage from './CollectionPage';
 import PhotoPage from './PhotoPage';
-import Shell from './Shell';
-import ViewportDimensions from './common/ViewportDimensions';
 
 const Routes = {
   CollectionDetail: {
@@ -36,15 +34,11 @@ export const PhotoDetailLink = makeLink(Routes.PhotoDetail.path);
 
 function App() {
   return (
-    <Shell>
-      <ViewportDimensions>
-        <Router>
-          {Object.keys(Routes).map(key => (
-            <Route key={key} {...Routes[key]} />
-          ))}
-        </Router>
-      </ViewportDimensions>
-    </Shell>
+    <Router>
+      {Object.keys(Routes).map(key => (
+        <Route key={key} {...Routes[key]} />
+      ))}
+    </Router>
   );
 }
 
