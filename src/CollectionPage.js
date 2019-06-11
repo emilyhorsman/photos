@@ -2,6 +2,7 @@ import React from 'react';
 import graphql from 'babel-plugin-relay/macro';
 import { QueryRenderer } from 'react-relay';
 import { Link } from 'react-router-dom';
+import { PhotoDetailLink } from './App';
 import Environment from './Environment';
 import PhotoPreview from './PhotoPreview';
 
@@ -34,14 +35,14 @@ function CollectionPageQueryRenderer({ error, props }) {
     <div>
       <h1>{collection.name}</h1>
       {collection.photoCollections.nodes.map(({ photo }) => (
-        <Link to={`/photo/${photo.rowId}`} key={photo.rowId}>
+        <PhotoDetailLink params={{ id: photo.rowId }} key={photo.rowId}>
           <PhotoPreview
             photo={photo}
             style={{
               maxWidth: '50vw',
             }}
           />
-        </Link>
+        </PhotoDetailLink>
       ))}
     </div>
   );

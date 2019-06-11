@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 38de68ac7276c067f7020055f591887c
+ * @relayHash 883f6f0aeffccd3234018fcc7468626e
  */
 
 /* eslint-disable */
@@ -10,13 +10,14 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type ImageMagick_photo$ref = any;
+type PhotoAssociations_photo$ref = any;
 type PhotoPreview_photo$ref = any;
 export type PhotoPageQueryVariables = {|
   id: number
 |};
 export type PhotoPageQueryResponse = {|
   +photo: ?{|
-    +$fragmentRefs: ImageMagick_photo$ref & PhotoPreview_photo$ref
+    +$fragmentRefs: ImageMagick_photo$ref & PhotoPreview_photo$ref & PhotoAssociations_photo$ref
   |}
 |};
 export type PhotoPageQuery = {|
@@ -33,6 +34,7 @@ query PhotoPageQuery(
   photo(rowId: $id) {
     ...ImageMagick_photo
     ...PhotoPreview_photo
+    ...PhotoAssociations_photo
     id
   }
 }
@@ -44,6 +46,19 @@ fragment ImageMagick_photo on Photo {
 fragment PhotoPreview_photo on Photo {
   id
   filepath
+}
+
+fragment PhotoAssociations_photo on Photo {
+  photoCollections {
+    nodes {
+      collection {
+        rowId
+        name
+        id
+      }
+      id
+    }
+  }
 }
 */
 
@@ -62,7 +77,14 @@ v1 = [
     "name": "rowId",
     "variableName": "id"
   }
-];
+],
+v2 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
+  "args": null,
+  "storageKey": null
+};
 return {
   "kind": "Request",
   "fragment": {
@@ -90,6 +112,11 @@ return {
             "kind": "FragmentSpread",
             "name": "PhotoPreview_photo",
             "args": null
+          },
+          {
+            "kind": "FragmentSpread",
+            "name": "PhotoAssociations_photo",
+            "args": null
           }
         ]
       }
@@ -116,19 +143,62 @@ return {
             "args": null,
             "storageKey": null
           },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "id",
-            "args": null,
-            "storageKey": null
-          },
+          (v2/*: any*/),
           {
             "kind": "ScalarField",
             "alias": null,
             "name": "filepath",
             "args": null,
             "storageKey": null
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "photoCollections",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "PhotoCollectionsConnection",
+            "plural": false,
+            "selections": [
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "nodes",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "PhotoCollection",
+                "plural": true,
+                "selections": [
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "collection",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "Collection",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "rowId",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "name",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      (v2/*: any*/)
+                    ]
+                  },
+                  (v2/*: any*/)
+                ]
+              }
+            ]
           }
         ]
       }
@@ -138,11 +208,11 @@ return {
     "operationKind": "query",
     "name": "PhotoPageQuery",
     "id": null,
-    "text": "query PhotoPageQuery(\n  $id: Int!\n) {\n  photo(rowId: $id) {\n    ...ImageMagick_photo\n    ...PhotoPreview_photo\n    id\n  }\n}\n\nfragment ImageMagick_photo on Photo {\n  identifyVerbose\n}\n\nfragment PhotoPreview_photo on Photo {\n  id\n  filepath\n}\n",
+    "text": "query PhotoPageQuery(\n  $id: Int!\n) {\n  photo(rowId: $id) {\n    ...ImageMagick_photo\n    ...PhotoPreview_photo\n    ...PhotoAssociations_photo\n    id\n  }\n}\n\nfragment ImageMagick_photo on Photo {\n  identifyVerbose\n}\n\nfragment PhotoPreview_photo on Photo {\n  id\n  filepath\n}\n\nfragment PhotoAssociations_photo on Photo {\n  photoCollections {\n    nodes {\n      collection {\n        rowId\n        name\n        id\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '8eb3c7a721b4d8c231a5612afcd18842';
+(node/*: any*/).hash = 'b01b261c3c28f90113137f3615262932';
 module.exports = node;

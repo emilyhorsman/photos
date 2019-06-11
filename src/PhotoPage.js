@@ -5,6 +5,7 @@ import { QueryRenderer } from 'react-relay';
 import Environment from './Environment';
 import ExifSummary from './ExifSummary';
 import ImageMagick from './ImageMagick';
+import PhotoAssociations from './PhotoAssociations';
 import PhotoPreview from './PhotoPreview';
 
 const PhotoPageQuery = graphql`
@@ -12,6 +13,7 @@ const PhotoPageQuery = graphql`
     photo(rowId: $id) {
       ...ImageMagick_photo
       ...PhotoPreview_photo
+      ...PhotoAssociations_photo
     }
   }
 `;
@@ -39,6 +41,8 @@ function PhotoPageQueryRenderer({ error, props }) {
           />
 
           <ExifSummary exif={exif} />
+
+          <PhotoAssociations photo={photo} />
         </>
       )}
     </ImageMagick>
