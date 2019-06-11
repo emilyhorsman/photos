@@ -16,7 +16,6 @@ function getQuotient(value) {
 
 function ImageMagick({ children, photo }) {
   const data = JSON.parse(photo.identifyVerbose);
-  console.log(data);
   return children({
     width: data.geometry.width,
     height: data.geometry.height,
