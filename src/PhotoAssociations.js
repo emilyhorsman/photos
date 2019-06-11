@@ -16,7 +16,7 @@ function PhotoAssociations({ photo }) {
   return (
     <ul>
       {collections.map(collection => (
-        <li key={collection.id}>
+        <li key={collection.rowId}>
           <CollectionDetailLink params={{ id: collection.rowId }}>
             <Text>{collection.name}</Text>
           </CollectionDetailLink>
