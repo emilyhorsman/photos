@@ -7,35 +7,35 @@ import Text from './common/Text';
 function ExifSummary({ exif }) {
   return (
     <div>
-      {exif.focalLength !== undefined ? (
+      {Boolean(exif.focalLength) ? (
         <FlexRow>
           <Text>Focal Length: </Text>
           <Text>{exif.focalLength} mm</Text>
         </FlexRow>
       ) : null}
 
-      {exif.iso !== undefined ? (
+      {Boolean(exif.iso) ? (
         <FlexRow>
           <Text>ISO: </Text>
           <Text>{exif.iso}</Text>
         </FlexRow>
       ) : null}
 
-      {exif.aperture !== undefined ? (
+      {Boolean(exif.aperture) ? (
         <FlexRow>
           <Text>Aperture: </Text>
           <Text>f/{exif.aperture}</Text>
         </FlexRow>
       ) : null}
 
-      {exif.camera !== undefined ? (
+      {Boolean(exif.camera) ? (
         <FlexRow>
           <Text>Camera: </Text>
           <Text>{exif.camera}</Text>
         </FlexRow>
       ) : null}
 
-      {exif.software !== undefined ? (
+      {Boolean(exif.software) ? (
         <FlexRow>
           <Text>Software: </Text>
           <Text>{exif.software}</Text>
