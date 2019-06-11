@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { PhotoDetailLink } from './App';
 import Environment from './Environment';
 import PhotoPreview from './PhotoPreview';
+import Text from './common/Text';
 
 const CollectionPageQuery = graphql`
   query CollectionPageQuery($id: Int!) {
@@ -22,6 +23,8 @@ const CollectionPageQuery = graphql`
   }
 `;
 
+const Header = Text.withComponent('h1');
+
 function CollectionPageQueryRenderer({ error, props }) {
   if (error) {
     console.log(error);
@@ -33,7 +36,7 @@ function CollectionPageQueryRenderer({ error, props }) {
   const { collection } = props;
   return (
     <div>
-      <h1>{collection.name}</h1>
+      <Header size="h1">{collection.name}</Header>
       {collection.photoCollections.nodes.map(({ photo }) => (
         <PhotoDetailLink params={{ id: photo.rowId }} key={photo.rowId}>
           <PhotoPreview
