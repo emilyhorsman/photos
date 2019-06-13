@@ -11,6 +11,7 @@ import ExifSummary from './ExifSummary';
 import ImageMagick from './ImageMagick';
 import PhotoAssociations from './PhotoAssociations';
 import PhotoPreview from './PhotoPreview';
+import PhotoToolbar from './PhotoToolbar';
 
 const PhotoPageQuery = graphql`
   query PhotoPageQuery($id: Int!) {
@@ -27,6 +28,11 @@ const Layout = styled.div({
   flexDirection: 'column',
   width: '100vw',
   height: '100vh',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: 36,
+  paddingTop: 96,
+  boxSizing: 'border-box',
 });
 
 function calculateStyle(viewport, imageWidth, imageHeight) {
@@ -73,31 +79,16 @@ function Page({ photo }) {
   });
 
   return (
-    <ImageMagick photo={photo}>
-      {exif => (
-        <Layout>
-          <div
-            css={{
-              height: '100%',
-              flexGrow: 1,
-              overflow: 'hidden',
-              padding: 24,
-            }}
-            ref={photoContainerEl}
-          >
-            <PhotoPreview
-              photo={photo}
-              style={calculateStyle(dimensions, exif.width, exif.height)}
-            />
-          </div>
-
-          <div css={{ flexShrink: 0, padding: 24 }}>
-            <ExifSummary exif={exif} />
-            <PhotoAssociations photo={photo} />
-          </div>
-        </Layout>
-      )}
-    </ImageMagick>
+    <>
+      <PhotoToolbar />
+      <ImageMagick photo={photo}>
+        {exif => (
+          <Layout>
+            <PhotoPreview photo={photo} style={{ maxWidth: '100%' }} />
+          </Layout>
+        )}
+      </ImageMagick>
+    </>
   );
 }
 

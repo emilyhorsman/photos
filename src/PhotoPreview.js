@@ -8,13 +8,7 @@ function PhotoPreview({ photo, style }) {
   return (
     <img
       src={`${process.env.PUBLIC_URL}/photos/${photo.filepath}`}
-      css={[
-        style,
-        {
-          display: 'block',
-          marginBottom: 10,
-        },
-      ]}
+      css={style}
     />
   );
 }
