@@ -31,7 +31,7 @@ const Layout = styled.div({
   justifyContent: 'center',
   alignItems: 'center',
   padding: 36,
-  paddingTop: 96,
+  paddingTop: 86,
   boxSizing: 'border-box',
 });
 
@@ -80,12 +80,14 @@ function Page({ photo }) {
 
   return (
     <>
-      <PhotoToolbar />
       <ImageMagick photo={photo}>
         {exif => (
-          <Layout>
-            <PhotoPreview photo={photo} style={{ maxWidth: '100%' }} />
-          </Layout>
+          <>
+            <PhotoToolbar exif={exif} />
+            <Layout>
+              <PhotoPreview photo={photo} style={{ maxWidth: '100%' }} />
+            </Layout>
+          </>
         )}
       </ImageMagick>
     </>
